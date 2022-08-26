@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" charset="UTF-8">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'tindershow/css/style1.css' %}">
+    <link rel="stylesheet"
+          href=" https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js"></script>
+
+    <title>De Floxli suecht es neus Jöbbli</title>
+</head>
+<body>
+<div class="pos-f-t">
+    <div class="collapse" id="navbarToggleExternalContent">
+        <div class="bg-dark p-2">
+            <form id="jobRequestForm" action="/submitForm" method="POST" onsubmit="sendJobRequest(event, this)">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="search_terms">Job Search</label>
+                    <input type="text" class="form-control" id="search_terms" name="search_terms"
+                           value="{{ search_form_params.search_terms }}" required>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="min_pensum">Minimal Pensum</label>
+                        <input type="number" class="form-control" name="min_pensum" id="min_pensum"
+                               value="{{ search_form_params.min_pensum }}" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="max_pensum">Maximum Pensum</label>
+                        <input type="number" class="form-control" id="max_pensum" name="max_pensum"
+                               value="{{ search_form_params.max_pensum }}" required>
+                    </div>
+                </div>
+                <input class="btn btn-light btn-block" type="submit" value="Update Jobs"/>
+            </form>
+        </div>
+    </div>
+    <div class="collapse" id="admin">
+        <div class="bg-dark p-2">
+            <form action="/deleteAll" method="GET">
+                <input class="btn btn-light btn-block" type="submit" value="Reset Database">
+            </form>
+        </div>
+        <div class="bg-dark p-2">
+            <form action="/sendEmail" method="GET">
+                <input class="btn btn-light btn-block" type="submit" value="Send Email with Results">
+            </form>
+        </div>
+    </div>
+    <nav id="searchNavBar" class="navbar navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarToggleExternalContent"
+                aria-controls="navbarToggleExternalContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#admin"
+                aria-controls="admin" aria-expanded="false"
+                aria-label="Toggle Accordion">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+</div>
+<div class="tinder">
+    <script>
+        var number_of_max_cards = {{number_of_max_cards}};
+    </script>
+    <div class="tinder--status">
+        <i class="fa fa-remove"></i>
+        <i class="fa fa-heart"></i>
+    </div>
+    <div class="tinder--cards"></div>
+</div>
+<div class="status">
+    <div class="progress">
+        <div id="updateStatusProgress" class="progress-bar bg-success"
+             role="progressbar" style="width: 100%"
+             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+            <div id="updateStatusText" class="innerProgress">Updated
+                on {{ search_form_params.query_time|default_if_none:" ... Never" }}</div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="{% static 'tindershow/js/search_behavior.js' %}"></script>
+<script src="{% static 'tindershow/js/card_behaviour.js' %}"></script>
+<script src="{% static 'tindershow/js/split_search_terms.js' %}"></script>
+</html>

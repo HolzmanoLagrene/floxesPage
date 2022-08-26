@@ -1,0 +1,15 @@
+{% for job in unknown_jobs %}
+    <div id="tinder_card_{{ job.id }}" class="tinder--card mt-2 col-md-12">
+        <img class="icon" src="{{ job.source.image_base64 }}">
+        <div class="c-details">
+            <h4 class="mb-0">{{ job.title }}</h4> <span>1 days ago</span>
+        </div>
+        <div>
+            {% for attribute in job.attributes %}
+                <span class="badge badge-pill badge-primary">{{ attribute }}</span>
+            {% endfor %}
+        </div>
+        <h5>{{ job.origin_company }}</h5>
+        <a href="{{ job.link }}" class="btn btn-info" role="button">Check Link</a>
+    </div>
+{% endfor %}
