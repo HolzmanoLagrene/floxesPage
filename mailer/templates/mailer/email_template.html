@@ -25,7 +25,9 @@
         <td>{{ job.source.name }}</td>
         <td>{{ job.title}}</td>
         <td>{{ job.origin_compay }}</td>
-        <td>{{ job.attributes }}</td>
+        <td>
+            {{  job.attributes|join:", " }}
+        </td>
         <td>{{ job.age }}</td>
         <td><a href="{{ job.link }}" class="btn btn-info" role="button">Link</a></td>
     </tr>

@@ -8,9 +8,9 @@ class Mailer:
         pass
 
     def send_mail(self, message):
-        subject = 'Thank you for registering to our site'
+        subject = 'Overview over liked Jobs on defloxsuechtesneusjoebb.li'
         email_from = settings.EMAIL_HOST_USER
-        recipient_list = ['lnzbmnn@gmail.com', ]
+        recipient_list = ['lnzbmnn@gmail.com']
         mail = EmailMessage(subject, message, email_from, recipient_list)
         mail.content_subtype = "html"
         try:
