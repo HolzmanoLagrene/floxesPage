@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 from tindershow import views as tinder_views
 
@@ -25,5 +26,5 @@ urlpatterns = [
     path('load_cards', tinder_views.load_next_cards),
     path('deleteAll', tinder_views.delete_all),
     path('sendEmail', tinder_views.send_email)
-
 ]
+
